@@ -1,3 +1,6 @@
+let transformedData;
+let places;
+
 /**
  * @name serialize
  * @inner
@@ -66,6 +69,37 @@ const findSegments = (segments = [], ids = []) => {
 };
 
 /**
+ * @name findCarriers
+ * @inner
+ * @type {Function}
+ * @description
+ * Finds carriers by segment Ids (caching search)
+ *
+ * @param {Array} carriers
+ * @param {String} ids
+ * @returns {Array<Object>|undefined}
+ */
+const findCarriers = (carriers = [], ids = []) => {
+  const res = [];
+  if (ids.length) {
+    for (let i = 0; i < ids.length; i++) {
+      if (findCarriers[ids[i]]) {
+        res.push(findCarriers[ids[i]]);
+      } else {
+        const carrier = carriers.find(item => item.Id === ids[i]);
+        findCarriers[ids[i]] = carrier;
+        res.push(carrier);
+      }
+    }
+  }
+  return res;
+};
+
+const getPlaceById = (id = 0) => {
+  return places.find(item => item.Id === id);
+};
+
+/**
  * @name transformData
  * @inner
  * @type {Function}
@@ -80,25 +114,29 @@ const transformData = (raw = {}) => {
   const itineraries = raw.Itineraries || [];
   const legs = raw.Legs || [];
   const segments = raw.Segments || [];
+  const carriers = raw.Carriers || [];
+
   if (itineraries.length) {
     for (let i = 0; i < itineraries.length; i++){
+
+      // add Legs
       itineraries[i].outboundLeg = findLeg(legs, itineraries[i].OutboundLegId);
       itineraries[i].inboundLeg = findLeg(legs, itineraries[i].InboundLegId);
 
+      // add Segments and Carriers
       if (itineraries[i].outboundLeg) {
         itineraries[i].outboundLeg.segments = findSegments(segments, itineraries[i].outboundLeg.SegmentIds);
+        itineraries[i].outboundLeg.carriers = findCarriers(carriers, itineraries[i].outboundLeg.Carriers);
       }
-
       if (itineraries[i].inboundLeg) {
         itineraries[i].inboundLeg.segments = findSegments(segments, itineraries[i].inboundLeg.SegmentIds);
+        itineraries[i].inboundLeg.carriers = findCarriers(carriers, itineraries[i].inboundLeg.Carriers);
       }
+
     }
   }
   return [...itineraries];
 };
-
-// Main response wrapper
-let transformedData;
 
 // Service API
 const service = {
@@ -117,12 +155,15 @@ const service = {
       .then((results) => {
         console.log('Data is arrived...');
         transformedData = transformData(results);
+        places = results.Places;
         return transformedData;
       })
       .catch(err => {
         throw err;
       });
   },
+
+  getPlaceById,
 };
 
 export default service;
