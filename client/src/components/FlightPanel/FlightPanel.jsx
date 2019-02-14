@@ -39,17 +39,18 @@ class FlightPanel extends React.Component {
   }
 
   getStops(leg) {
+    let stopMsg = '';
+
     if (leg.Stops.length === 1) {
-      return `${leg.Stops.length} stop in ${service.getPlaceById(leg.Stops[0]).Code}`;
+      stopMsg = `${leg.Stops.length} stop in ${service.getPlaceById(leg.Stops[0]).Code}`;
     }
 
     if (leg.Stops.length > 1) {
-      console.log(leg.Stops.length)
       const list = leg.Stops.map(id => service.getPlaceById(id).Code);
-      return `${leg.Stops.length} stops in ${list.join(', ')}`;
+      stopMsg = `${leg.Stops.length} stops in ${list.join(', ')}`;
     }
 
-    return '';
+    return stopMsg;
   }
 
   render() {
