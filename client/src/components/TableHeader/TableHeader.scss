@@ -1,0 +1,14 @@
+.TableHeader {
+  &__body {
+    background-color: white;
+    padding: .7rem;
+    color: #008ca8;
+    &-first-el {
+      display: inline-block;
+      padding-right: 3rem;
+    }
+    &-last-el {
+      float: right;
+    }
+  }
+}

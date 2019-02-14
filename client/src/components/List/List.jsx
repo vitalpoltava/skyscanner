@@ -1,6 +1,9 @@
 import React from 'react';
 import FlightPanel from './../FlightPanel/FlightPanel';
 import BpkButton from 'bpk-component-button';
+import STYLES from './List.scss';
+
+const c = className => STYLES[className] || 'UNKNOWN';
 
 class List extends React.Component {
   constructor(props) {
@@ -28,7 +31,9 @@ class List extends React.Component {
       this.props.data ?
         <div>
           <div>{this.getFlightsPerPage}</div>
-          <BpkButton secondary onClick={this.incrementPage.bind(this)}>Show more</BpkButton>
+          <div className={c('List__centerAligned')}>
+            <BpkButton secondary onClick={this.incrementPage.bind(this)}>Show more</BpkButton>
+          </div>
         </div>
         : null
     );

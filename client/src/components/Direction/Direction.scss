@@ -1,0 +1,11 @@
+.Direction {
+  &__body {
+    background-color: #008ca8;
+    color: white;
+    padding: .7rem;
+    &-header {
+      font-size: 2rem;
+      margin-bottom: .5rem;
+    }
+  }
+}
