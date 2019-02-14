@@ -1,6 +1,7 @@
 import React from 'react';
-import FlightPanel from './../FlightPanel/FlightPanel';
+import PropTypes from 'prop-types';
 import BpkButton from 'bpk-component-button';
+import FlightPanel from './../FlightPanel/FlightPanel';
 import STYLES from './List.scss';
 
 const c = className => STYLES[className] || 'UNKNOWN';
@@ -11,20 +12,22 @@ class List extends React.Component {
     this.state = {
       pageSize: 10,
       currentPage: 1,
-    }
+    };
   }
 
-  get getFlightsPerPage(){
+  get getFlightsPerPage() {
+    let list;
     if (this.props.data && this.props.data.length) {
       const chunk = this.props.data.slice(0, this.state.pageSize * this.state.currentPage);
-      return chunk.map((flight, index) => <FlightPanel key={index} flight={flight}/>);
+      list = chunk.map(flight => <FlightPanel key={flight.toString()} flight={flight} />);
     }
+    return list;
   }
 
-  incrementPage(){
-    let next = this.state.currentPage + 1;
-    this.setState({currentPage: next});
-  }
+  incrementPage = () => {
+    const next = this.state.currentPage + 1;
+    this.setState({ currentPage: next });
+  };
 
   render() {
     return (
@@ -32,12 +35,16 @@ class List extends React.Component {
         <div>
           <div>{this.getFlightsPerPage}</div>
           <div className={c('List__centerAligned')}>
-            <BpkButton secondary onClick={this.incrementPage.bind(this)}>Show more</BpkButton>
+            <BpkButton secondary onClick={this.incrementPage}>Show more</BpkButton>
           </div>
         </div>
         : null
     );
   }
 }
+
+List.propTypes = {
+  data: PropTypes.isRequired,
+};
 
 export default List;

@@ -23,7 +23,7 @@ const Direction = props =>
   );
 
 Direction.propTypes = {
-  config: PropTypes.objectOf(PropTypes.object()).isRequired,
+  config: PropTypes.isRequired,
 };
 
 export default Direction;

@@ -1,7 +1,8 @@
 let transformedData;
-let places, agents;
+let places;
+let agents;
 
-/**
+/*
  * @name serialize
  * @inner
  * @type {Function}
@@ -11,16 +12,15 @@ let places, agents;
  * @param {Object} obj
  * @returns {string}
  */
-const serialize = (obj) => {
+const serialize = (obj = {}) => {
   const str = [];
-  for (let p in obj)
-    if (obj.hasOwnProperty(p)) {
-      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-    }
-  return str.join("&");
+  Object.keys(obj).forEach((key) => {
+    str.push(`${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`);
+  });
+  return str.join('&');
 };
 
-/**
+/*
  * @name findLeg
  * @inner
  * @type {Function}
@@ -34,14 +34,14 @@ const serialize = (obj) => {
 const findLeg = (legs = [], legId = '') => {
   if (legId && findLeg[legId]) {
     return findLeg[legId];
-  } else {
-    const leg = legId && legs.find(item => item.Id === legId);
-    findLeg[legId] = leg;
-    return leg;
   }
+
+  const leg = legId && legs.find(item => item.Id === legId);
+  findLeg[legId] = leg;
+  return leg;
 };
 
-/**
+/*
  * @name findSegments
  * @inner
  * @type {Function}
@@ -55,7 +55,7 @@ const findLeg = (legs = [], legId = '') => {
 const findSegments = (segments = [], ids = []) => {
   const res = [];
   if (ids.length) {
-    for (let i = 0; i < ids.length; i++) {
+    for (let i = 0; i < ids.length; i += 1) {
       if (findSegments[ids[i]]) {
         res.push(findSegments[ids[i]]);
       } else {
@@ -68,7 +68,7 @@ const findSegments = (segments = [], ids = []) => {
   return res;
 };
 
-/**
+/*
  * @name findCarriers
  * @inner
  * @type {Function}
@@ -82,7 +82,7 @@ const findSegments = (segments = [], ids = []) => {
 const findCarriers = (carriers = [], ids = []) => {
   const res = [];
   if (ids.length) {
-    for (let i = 0; i < ids.length; i++) {
+    for (let i = 0; i < ids.length; i += 1) {
       if (findCarriers[ids[i]]) {
         res.push(findCarriers[ids[i]]);
       } else {
@@ -95,7 +95,7 @@ const findCarriers = (carriers = [], ids = []) => {
   return res;
 };
 
-/**
+/*
  * @name getPlaceById
  * @type {Function}
  * @description
@@ -104,11 +104,9 @@ const findCarriers = (carriers = [], ids = []) => {
  * @param {Number} id
  * @returns {Object|undefined}
  */
-const getPlaceById = (id = 0) => {
-  return places.find(item => item.Id === id);
-};
+const getPlaceById = (id = 0) => places.find(item => item.Id === id);
 
-/**
+/*
  * @name getAgentById
  * @type {Function}
  * @description
@@ -117,11 +115,9 @@ const getPlaceById = (id = 0) => {
  * @param {Number} id
  * @returns {Object|undefined}
  */
-const getAgentById = (id = 0) => {
-  return agents.find(item => item.Id === id);
-};
+const getAgentById = (id = 0) => agents.find(item => item.Id === id);
 
-/**
+/*
  * @name flightTimeInHours
  * @inner
  * @type {Function}
@@ -134,12 +130,12 @@ const getAgentById = (id = 0) => {
 const flightTimeInHours = (durationInMinutes = 0) => {
   const hours = Math.floor(durationInMinutes / 60);
   const mins = durationInMinutes - (hours * 60) >= 10 ?
-    durationInMinutes - (hours * 60) : '0' + durationInMinutes - (hours * 60);
+    durationInMinutes - (hours * 60) : `0${(durationInMinutes - (hours * 60))}`;
 
   return `${hours}h ${mins}`;
 };
 
-/**
+/*
  * @name transformData
  * @inner
  * @type {Function}
@@ -157,27 +153,31 @@ const transformData = (raw = {}) => {
   const carriers = raw.Carriers || [];
 
   if (itineraries.length) {
-    for (let i = 0; i < itineraries.length; i++){
-
+    for (let i = 0; i < itineraries.length; i += 1) {
       // add Legs
       itineraries[i].outboundLeg = findLeg(legs, itineraries[i].OutboundLegId);
       itineraries[i].inboundLeg = findLeg(legs, itineraries[i].InboundLegId);
 
       // add currency
-      itineraries[i].currency = raw.Currencies[0];
+      itineraries[i].currency = raw.Currencies[0] || [];
 
       // add Segments, Carriers, duration
       if (itineraries[i].outboundLeg) {
-        itineraries[i].outboundLeg.segments = findSegments(segments, itineraries[i].outboundLeg.SegmentIds);
-        itineraries[i].outboundLeg.carriers = findCarriers(carriers, itineraries[i].outboundLeg.Carriers);
-        itineraries[i].outboundLeg.duration = flightTimeInHours(itineraries[i].outboundLeg.Duration);
+        itineraries[i].outboundLeg.segments =
+          findSegments(segments, itineraries[i].outboundLeg.SegmentIds);
+        itineraries[i].outboundLeg.carriers =
+          findCarriers(carriers, itineraries[i].outboundLeg.Carriers);
+        itineraries[i].outboundLeg.duration =
+          flightTimeInHours(itineraries[i].outboundLeg.Duration);
       }
       if (itineraries[i].inboundLeg) {
-        itineraries[i].inboundLeg.segments = findSegments(segments, itineraries[i].inboundLeg.SegmentIds);
-        itineraries[i].inboundLeg.carriers = findCarriers(carriers, itineraries[i].inboundLeg.Carriers);
-        itineraries[i].inboundLeg.duration = flightTimeInHours(itineraries[i].inboundLeg.Duration);
+        itineraries[i].inboundLeg.segments =
+          findSegments(segments, itineraries[i].inboundLeg.SegmentIds);
+        itineraries[i].inboundLeg.carriers =
+          findCarriers(carriers, itineraries[i].inboundLeg.Carriers);
+        itineraries[i].inboundLeg.duration =
+          flightTimeInHours(itineraries[i].inboundLeg.Duration);
       }
-
     }
   }
   return [...itineraries];
@@ -189,12 +189,14 @@ const service = {
     const apiLink = 'http://localhost:4000/api/search';
 
     return fetch(`${apiLink}?${serialize(paramsObj)}`)
-      .then(response => {
+      .then((response) => {
+        let result;
         if (response.status >= 200 && response.status < 300) {
-          return Promise.resolve(response)
+          result = Promise.resolve(response);
         } else {
-          return Promise.reject(new Error(response.statusText))
+          result = Promise.reject(new Error(response.statusText));
         }
+        return result;
       })
       .then(data => data.json())
       .then((results) => {
@@ -205,7 +207,7 @@ const service = {
 
         return transformedData;
       })
-      .catch(err => {
+      .catch((err) => {
         throw err;
       });
   },

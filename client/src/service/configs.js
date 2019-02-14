@@ -10,7 +10,7 @@ const getNextWeekDay = (weekDay = 1) => {
   } else {
     result = moment().add(1, 'weeks').isoWeekday(dayINeed);
   }
-  return result.format('YYYY-MM-DD')
+  return result.format('YYYY-MM-DD');
 };
 
 const initialParams = {
@@ -25,4 +25,4 @@ const initialParams = {
 
 export default {
   initialParams,
-}
+};

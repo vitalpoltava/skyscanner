@@ -152,7 +152,7 @@ const FlightPanel = props =>
   );
 
 FlightPanel.propTypes = {
-  flight: PropTypes.objectOf(PropTypes.object()).isRequired,
+  flight: PropTypes.isRequired,
 };
 
 export default FlightPanel;
