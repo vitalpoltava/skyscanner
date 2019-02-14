@@ -200,7 +200,6 @@ const service = {
       })
       .then(data => data.json())
       .then((results) => {
-        console.log('Data is arrived...');
         transformedData = transformData(results);
         agents = results.Agents;
         places = results.Places;

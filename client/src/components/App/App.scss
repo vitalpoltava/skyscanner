@@ -1,11 +1,12 @@
 @import '~bpk-mixins';
+$lightgrey: lightgrey;
 
 .App {
   &__main {
     padding: $bpk-spacing-sm;
   }
 
-  &-gray-background {
-    background-color: lightgrey;
+  &__gray-background {
+    background-color: $lightgrey;
   }
 }

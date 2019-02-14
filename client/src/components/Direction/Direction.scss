@@ -1,11 +1,18 @@
+$brand-blue: #008ca8;
+$white: white;
+$smaller-padding: .7rem;
+$big-font: 2rem;
+$small-margin: .5rem;
+
 .Direction {
   &__body {
-    background-color: #008ca8;
-    color: white;
-    padding: .7rem;
+    padding: $smaller-padding;
+    background-color: $brand-blue;
+    color: $white;
+
     &-header {
-      font-size: 2rem;
-      margin-bottom: .5rem;
+      margin-bottom: $small-margin;
+      font-size: $big-font;
     }
   }
 }

@@ -40,7 +40,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className={c('App-gray-background')}>
+      <div className={c('App__gray-background')}>
         <Header />
         <Direction config={configs} />
         <TableHeader />
