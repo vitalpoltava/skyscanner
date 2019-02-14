@@ -11,21 +11,24 @@ class List extends React.Component {
     }
   }
 
-  getFlightsPerPage(){
-    return this.props.data.slice(0, this.state.pageSize * this.state.currentPage);
+  get getFlightsPerPage(){
+    if (this.props.data && this.props.data.length) {
+      const chunk = this.props.data.slice(0, this.state.pageSize * this.state.currentPage);
+      return chunk.map((flight, index) => <FlightPanel key={index} flight={flight}/>);
+    }
   }
 
   incrementPage(){
-    let next = this.state.currentPage;
-    this.setState({currentPage: ++next});
+    let next = this.state.currentPage + 1;
+    this.setState({currentPage: next});
   }
 
   render() {
     return (
       this.props.data ?
         <div>
-          <div>{this.getFlightsPerPage().map((flight, index) => <FlightPanel key={index} flight={flight}/>)}</div>
-          <BpkButton secondary onClick={this.incrementPage.bind(this)}>Load more</BpkButton>
+          <div>{this.getFlightsPerPage}</div>
+          <BpkButton secondary onClick={this.incrementPage.bind(this)}>Show more</BpkButton>
         </div>
         : null
     );

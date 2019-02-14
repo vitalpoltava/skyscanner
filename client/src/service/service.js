@@ -1,5 +1,5 @@
 let transformedData;
-let places;
+let places, agents;
 
 /**
  * @name serialize
@@ -95,8 +95,48 @@ const findCarriers = (carriers = [], ids = []) => {
   return res;
 };
 
+/**
+ * @name getPlaceById
+ * @type {Function}
+ * @description
+ * Returns Place object by Id
+ *
+ * @param {Number} id
+ * @returns {Object|undefined}
+ */
 const getPlaceById = (id = 0) => {
   return places.find(item => item.Id === id);
+};
+
+/**
+ * @name getAgentById
+ * @type {Function}
+ * @description
+ * Returns Agent object by Id
+ *
+ * @param {Number} id
+ * @returns {Object|undefined}
+ */
+const getAgentById = (id = 0) => {
+  return agents.find(item => item.Id === id);
+};
+
+/**
+ * @name flightTimeInHours
+ * @inner
+ * @type {Function}
+ * @description
+ * Returns formatted flight duration
+ *
+ * @param {Number} durationInMinutes
+ * @returns {string}
+ */
+const flightTimeInHours = (durationInMinutes = 0) => {
+  const hours = Math.floor(durationInMinutes / 60);
+  const mins = durationInMinutes - (hours * 60) >= 10 ?
+    durationInMinutes - (hours * 60) : '0' + durationInMinutes - (hours * 60);
+
+  return `${hours}h ${mins}`;
 };
 
 /**
@@ -123,14 +163,19 @@ const transformData = (raw = {}) => {
       itineraries[i].outboundLeg = findLeg(legs, itineraries[i].OutboundLegId);
       itineraries[i].inboundLeg = findLeg(legs, itineraries[i].InboundLegId);
 
-      // add Segments and Carriers
+      // add currency
+      itineraries[i].currency = raw.Currencies[0];
+
+      // add Segments, Carriers, duration
       if (itineraries[i].outboundLeg) {
         itineraries[i].outboundLeg.segments = findSegments(segments, itineraries[i].outboundLeg.SegmentIds);
         itineraries[i].outboundLeg.carriers = findCarriers(carriers, itineraries[i].outboundLeg.Carriers);
+        itineraries[i].outboundLeg.duration = flightTimeInHours(itineraries[i].outboundLeg.Duration);
       }
       if (itineraries[i].inboundLeg) {
         itineraries[i].inboundLeg.segments = findSegments(segments, itineraries[i].inboundLeg.SegmentIds);
         itineraries[i].inboundLeg.carriers = findCarriers(carriers, itineraries[i].inboundLeg.Carriers);
+        itineraries[i].inboundLeg.duration = flightTimeInHours(itineraries[i].inboundLeg.Duration);
       }
 
     }
@@ -155,7 +200,9 @@ const service = {
       .then((results) => {
         console.log('Data is arrived...');
         transformedData = transformData(results);
+        agents = results.Agents;
         places = results.Places;
+
         return transformedData;
       })
       .catch(err => {
@@ -164,6 +211,7 @@ const service = {
   },
 
   getPlaceById,
+  getAgentById,
 };
 
 export default service;
