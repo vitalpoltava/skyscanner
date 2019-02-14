@@ -18,19 +18,23 @@ class App extends React.Component {
     this.state = {
       isLoading: false,
       data: null,
-    }
+    };
   }
 
   componentDidMount() {
-    this.setState({isLoading: true});
+    this.initialLoad();
+  }
+
+  initialLoad() {
+    this.setState({ isLoading: true });
 
     // Initial data load
     service.getData(configs.initialParams)
-      .then(data => {
-        this.setState({data});
+      .then((data) => {
+        this.setState({ data });
       })
       .finally(() => {
-        this.setState({isLoading: false});
+        this.setState({ isLoading: false });
       });
   }
 
@@ -38,10 +42,10 @@ class App extends React.Component {
     return (
       <div className={c('App-gray-background')}>
         <Header />
-        <Direction config={configs}/>
+        <Direction config={configs} />
         <TableHeader />
         <main className={c('App__main')}>
-          <Loading isLoading={this.state.isLoading}/>
+          <Loading isLoading={this.state.isLoading} />
           <List data={this.state.data} />
         </main>
       </div>
