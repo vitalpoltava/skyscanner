@@ -11,26 +11,18 @@ const AlignedAlertIcon = withAlignment(
 
 const c = className => STYLES[className] || 'UNKNOWN';
 
-class TableHeader extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className={c('TableHeader__body')}>
-        <span className={c('TableHeader__body-first-el')}>Filter</span>
-        <span>Sort</span>
-        <div className={c('TableHeader__body-last-el')}>
-          <BpkText tagName="span">
-            <AlignedAlertIcon fill="#008ca8"/>
-            Price alerts
-          </BpkText>
-        </div>
-      </div>
-    );
-  }
-}
+const TableHeader = () => {
+  return <div className={c('TableHeader__body')}>
+    <span className={c('TableHeader__body-first-el')}>Filter</span>
+    <span>Sort</span>
+    <div className={c('TableHeader__body-last-el')}>
+      <BpkText tagName="span">
+        <AlignedAlertIcon fill="#008ca8"/>
+        Price alerts
+      </BpkText>
+    </div>
+  </div>
+};
 
 export default TableHeader;
 

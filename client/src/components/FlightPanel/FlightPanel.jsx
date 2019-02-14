@@ -30,7 +30,7 @@ const getInboundTime = (flight) => {
     return [flight.inboundLeg.Departure.split('T')[1].slice(0,5),
       flight.inboundLeg.Arrival.split('T')[1].slice(0,5)]
   }
-}
+};
 
 const getStops = (leg) => {
   let stopMsg = '';
@@ -47,12 +47,7 @@ const getStops = (leg) => {
   return stopMsg;
 };
 
-class FlightPanel extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+const FlightPanel = (props) => {
     return (
       <div className={c('FlightPanel')}>
         <BpkCard>
@@ -61,15 +56,15 @@ class FlightPanel extends React.Component {
               <BpkGridColumn width={3}>
                 <BpkGridRow>
                   <BpkGridColumn width={12}>
-                    <img className={c('FlightPanel__logo')} src={getLogo(this.props.flight, 0)}/>
+                    <img className={c('FlightPanel__logo')} src={getLogo(props.flight, 0)}/>
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>
               <BpkGridColumn width={6}>
                 <BpkGridRow>
                   <BpkGridColumn width={5}>
-                    <div>{getOutboundTime(this.props.flight)[0]}</div>
-                    <div className={c('FlightPanel__light')}>{service.getPlaceById(this.props.flight.outboundLeg.OriginStation).Code}</div>
+                    <div>{getOutboundTime(props.flight)[0]}</div>
+                    <div className={c('FlightPanel__light')}>{service.getPlaceById(props.flight.outboundLeg.OriginStation).Code}</div>
                   </BpkGridColumn>
                   <BpkGridColumn width={2}>
                     <BpkGridRow>
@@ -79,17 +74,17 @@ class FlightPanel extends React.Component {
                     </BpkGridRow>
                   </BpkGridColumn>
                   <BpkGridColumn width={5}>
-                    <div>{getOutboundTime(this.props.flight)[1]}</div>
-                    <div className={c('FlightPanel__light')}>{service.getPlaceById(this.props.flight.outboundLeg.DestinationStation).Code}</div>
+                    <div>{getOutboundTime(props.flight)[1]}</div>
+                    <div className={c('FlightPanel__light')}>{service.getPlaceById(props.flight.outboundLeg.DestinationStation).Code}</div>
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>
               <BpkGridColumn width={3}>
                 <BpkGridRow>
                   <BpkGridColumn width={12}>
-                    <div className={c('FlightPanel__rightAligned-gray')}>{this.props.flight.outboundLeg.duration}</div>
-                    <div className={c('FlightPanel__rightAligned-green')}>{!this.props.flight.outboundLeg.Stops.length && 'Direct'}</div>
-                    <div className={c('FlightPanel__rightAligned-gray')}>{getStops(this.props.flight.outboundLeg)}</div>
+                    <div className={c('FlightPanel__rightAligned-gray')}>{props.flight.outboundLeg.duration}</div>
+                    <div className={c('FlightPanel__rightAligned-green')}>{!props.flight.outboundLeg.Stops.length && 'Direct'}</div>
+                    <div className={c('FlightPanel__rightAligned-gray')}>{getStops(props.flight.outboundLeg)}</div>
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>
@@ -99,15 +94,15 @@ class FlightPanel extends React.Component {
               <BpkGridColumn width={3}>
                 <BpkGridRow>
                   <BpkGridColumn width={12}>
-                    <img className={c('FlightPanel__logo')} src={getLogo(this.props.flight, 1)}/>
+                    <img className={c('FlightPanel__logo')} src={getLogo(props.flight, 1)}/>
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>
               <BpkGridColumn width={6}>
                 <BpkGridRow>
                   <BpkGridColumn width={5}>
-                    <div>{getInboundTime(this.props.flight)[0]}</div>
-                    <div className={c('FlightPanel__light')}>{service.getPlaceById(this.props.flight.inboundLeg.OriginStation).Code}</div>
+                    <div>{getInboundTime(props.flight)[0]}</div>
+                    <div className={c('FlightPanel__light')}>{service.getPlaceById(props.flight.inboundLeg.OriginStation).Code}</div>
                   </BpkGridColumn>
                   <BpkGridColumn width={2}>
                     <BpkGridRow>
@@ -117,17 +112,17 @@ class FlightPanel extends React.Component {
                     </BpkGridRow>
                   </BpkGridColumn>
                   <BpkGridColumn width={5}>
-                    <div>{getInboundTime(this.props.flight)[1]}</div>
-                    <div className={c('FlightPanel__light')}>{service.getPlaceById(this.props.flight.inboundLeg.DestinationStation).Code}</div>
+                    <div>{getInboundTime(props.flight)[1]}</div>
+                    <div className={c('FlightPanel__light')}>{service.getPlaceById(props.flight.inboundLeg.DestinationStation).Code}</div>
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>
               <BpkGridColumn width={3}>
                 <BpkGridRow>
                   <BpkGridColumn width={12}>
-                    <div className={c('FlightPanel__rightAligned-gray')}>{this.props.flight.inboundLeg.duration}</div>
-                    <div className={c('FlightPanel__rightAligned-green')}>{!this.props.flight.inboundLeg.Stops.length && 'Direct'}</div>
-                    <div className={c('FlightPanel__rightAligned-gray')}>{getStops(this.props.flight.inboundLeg)}</div>
+                    <div className={c('FlightPanel__rightAligned-gray')}>{props.flight.inboundLeg.duration}</div>
+                    <div className={c('FlightPanel__rightAligned-green')}>{!props.flight.inboundLeg.Stops.length && 'Direct'}</div>
+                    <div className={c('FlightPanel__rightAligned-gray')}>{getStops(props.flight.inboundLeg)}</div>
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>
@@ -135,9 +130,9 @@ class FlightPanel extends React.Component {
             <BpkGridRow>
               <BpkGridColumn width={7}>
                 <div className={c('FlightPanel__price')}>
-                  {this.props.flight.currency.Symbol}{this.props.flight.PricingOptions[0].Price}
+                  {props.flight.currency.Symbol}{props.flight.PricingOptions[0].Price}
                   </div>
-                <div className={c('FlightPanel__agent')}>{service.getAgentById(this.props.flight.PricingOptions[0].Agents[0]).Name}</div>
+                <div className={c('FlightPanel__agent')}>{service.getAgentById(props.flight.PricingOptions[0].Agents[0]).Name}</div>
               </BpkGridColumn>
               <BpkGridColumn width={5}>
                 <div className={c('FlightPanel__rightAligned-inherit')}><BpkButton>Select</BpkButton></div>
@@ -147,7 +142,6 @@ class FlightPanel extends React.Component {
         </BpkCard>
       </div>
     );
-  }
-}
+};
 
 export default FlightPanel;

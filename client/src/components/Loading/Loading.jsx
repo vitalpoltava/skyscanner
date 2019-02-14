@@ -8,23 +8,15 @@ const AlignedSpinner = withAlignment(
   BpkSpinner, lineHeightBase, iconSizeSm
 );
 
-class Loading extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      this.props.isLoading === true ?
-        <div>
-          <BpkText tagName="span">
-            <AlignedSpinner type={SPINNER_TYPES.primary}/>&nbsp;
-            Loading flights...
-          </BpkText>
-        </div> : null
-    );
-  }
-}
+const Loading = (props) => {
+  return props.isLoading === true ?
+    <div>
+      <BpkText tagName="span">
+        <AlignedSpinner type={SPINNER_TYPES.primary}/>&nbsp;
+        Loading flights...
+      </BpkText>
+    </div> : null
+};
 
 export default Loading;
 
