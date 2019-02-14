@@ -45,7 +45,7 @@ const getStops = (leg) => {
   }
 
   return stopMsg;
-}
+};
 
 class FlightPanel extends React.Component {
   constructor(props) {
