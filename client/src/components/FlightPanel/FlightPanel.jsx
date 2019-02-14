@@ -66,7 +66,7 @@ class FlightPanel extends React.Component {
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>
-              <BpkGridColumn width={5}>
+              <BpkGridColumn width={6}>
                 <BpkGridRow>
                   <BpkGridColumn width={5}>
                     <div>{this.getOutboundTime(this.props.flight)[0]}</div>
@@ -85,7 +85,7 @@ class FlightPanel extends React.Component {
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>
-              <BpkGridColumn width={4}>
+              <BpkGridColumn width={3}>
                 <BpkGridRow>
                   <BpkGridColumn width={12}>
                     <div className={c('FlightPanel__rightAligned-gray')}>{this.props.flight.outboundLeg.duration}</div>
@@ -104,7 +104,7 @@ class FlightPanel extends React.Component {
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>
-              <BpkGridColumn width={5}>
+              <BpkGridColumn width={6}>
                 <BpkGridRow>
                   <BpkGridColumn width={5}>
                     <div>{this.getInboundTime(this.props.flight)[0]}</div>
@@ -123,7 +123,7 @@ class FlightPanel extends React.Component {
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>
-              <BpkGridColumn width={4}>
+              <BpkGridColumn width={3}>
                 <BpkGridRow>
                   <BpkGridColumn width={12}>
                     <div className={c('FlightPanel__rightAligned-gray')}>{this.props.flight.inboundLeg.duration}</div>
