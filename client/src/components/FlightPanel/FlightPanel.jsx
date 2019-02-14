@@ -70,18 +70,18 @@ class FlightPanel extends React.Component {
                 <BpkGridRow>
                   <BpkGridColumn width={5}>
                     <div>{this.getOutboundTime(this.props.flight)[0]}</div>
-                    <div>{service.getPlaceById(this.props.flight.outboundLeg.OriginStation).Code}</div>
+                    <div className={c('FlightPanel__light')}>{service.getPlaceById(this.props.flight.outboundLeg.OriginStation).Code}</div>
                   </BpkGridColumn>
                   <BpkGridColumn width={2}>
                     <BpkGridRow>
                       <BpkGridColumn width={12}>
-                        <BpkSmallLongArrowRightIcon fill="#999b9e"/>
+                        <BpkSmallLongArrowRightIcon fill="lightgrey"/>
                       </BpkGridColumn>
                     </BpkGridRow>
                   </BpkGridColumn>
                   <BpkGridColumn width={5}>
                     <div>{this.getOutboundTime(this.props.flight)[1]}</div>
-                    <div>{service.getPlaceById(this.props.flight.outboundLeg.DestinationStation).Code}</div>
+                    <div className={c('FlightPanel__light')}>{service.getPlaceById(this.props.flight.outboundLeg.DestinationStation).Code}</div>
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>
@@ -108,18 +108,18 @@ class FlightPanel extends React.Component {
                 <BpkGridRow>
                   <BpkGridColumn width={5}>
                     <div>{this.getInboundTime(this.props.flight)[0]}</div>
-                    <div>{service.getPlaceById(this.props.flight.inboundLeg.OriginStation).Code}</div>
+                    <div className={c('FlightPanel__light')}>{service.getPlaceById(this.props.flight.inboundLeg.OriginStation).Code}</div>
                   </BpkGridColumn>
                   <BpkGridColumn width={2}>
                     <BpkGridRow>
                       <BpkGridColumn width={12}>
-                        <BpkSmallLongArrowRightIcon fill="#999b9e"/>
+                        <BpkSmallLongArrowRightIcon fill="lightgrey"/>
                       </BpkGridColumn>
                     </BpkGridRow>
                   </BpkGridColumn>
                   <BpkGridColumn width={5}>
                     <div>{this.getInboundTime(this.props.flight)[1]}</div>
-                    <div>{service.getPlaceById(this.props.flight.inboundLeg.DestinationStation).Code}</div>
+                    <div className={c('FlightPanel__light')}>{service.getPlaceById(this.props.flight.inboundLeg.DestinationStation).Code}</div>
                   </BpkGridColumn>
                 </BpkGridRow>
               </BpkGridColumn>

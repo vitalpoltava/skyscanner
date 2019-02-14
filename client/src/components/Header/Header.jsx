@@ -1,10 +1,10 @@
 import React from 'react';
-import BpkSmallMenuIcon from 'bpk-component-icon/sm/menu';
+import BpkSMenuIcon from 'bpk-component-icon/lg/menu';
 import { withAlignment } from 'bpk-component-icon';
 import { lineHeightBase, iconSizeSm } from 'bpk-tokens/tokens/base.es6';
 
 const AlignedMenuIcon = withAlignment(
-  BpkSmallMenuIcon, lineHeightBase, iconSizeSm
+  BpkSMenuIcon, lineHeightBase, iconSizeSm
 );
 
 import logo from './logo.svg';
