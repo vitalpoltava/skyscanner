@@ -1,4 +1,3 @@
-let transformedData;
 let places;
 let agents;
 
@@ -200,11 +199,9 @@ const service = {
       })
       .then(data => data.json())
       .then((results) => {
-        transformedData = transformData(results);
-        agents = results.Agents;
-        places = results.Places;
-
-        return transformedData;
+        agents = [...results.Agents];
+        places = [...results.Places];
+        return transformData(results);
       })
       .catch((err) => {
         throw err;

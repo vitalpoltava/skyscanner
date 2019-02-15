@@ -1,34 +1,47 @@
+$direct-color: #00d775;
+$smaller-size: .7rem;
+$almost-same-size: .9rem;
+$bigger-size: 1.7rem;
+$gray: gray;
+$lightgrey: lightgrey;
+$dimgray: dimgray;
+
 .FlightPanel {
   margin-bottom: 1rem;
+
   &__logo {
     max-width: 4rem;
   }
 
   &__rightAligned {
-    &-green {
-      color: #00d775;
+    &--direct {
+      color: $direct-color;
+      font-size: $smaller-size;
       text-align: right;
-      font-size: .7rem;
     }
-    &-gray {
-      color: gray;
+
+    &--gray {
+      color: $gray;
+      font-size: $smaller-size;
       text-align: right;
-      font-size: .7rem;
     }
-    &-inherit {
+
+    &--inherit {
       text-align: right;
     }
   }
 
   &__light {
-    color: lightgrey;
+    color: $lightgrey;
   }
+
   &__agent {
-    color: gray;
-    font-size: .9rem;
+    color: $gray;
+    font-size: $almost-same-size;
   }
+
   &__price {
-    color: dimgray;
-    font-size: 1.7rem;
+    color: $dimgray;
+    font-size: $bigger-size;
   }
 }

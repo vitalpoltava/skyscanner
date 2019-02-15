@@ -90,9 +90,9 @@ const FlightPanel = props =>
             <BpkGridColumn width={3}>
               <BpkGridRow>
                 <BpkGridColumn width={12}>
-                  <div className={c('FlightPanel__rightAligned-gray')}>{props.flight.outboundLeg.duration}</div>
-                  <div className={c('FlightPanel__rightAligned-green')}>{!props.flight.outboundLeg.Stops.length && 'Direct'}</div>
-                  <div className={c('FlightPanel__rightAligned-gray')}>{getStops(props.flight.outboundLeg)}</div>
+                  <div className={c('FlightPanel__rightAligned--gray')}>{props.flight.outboundLeg.duration}</div>
+                  <div className={c('FlightPanel__rightAligned--direct')}>{!props.flight.outboundLeg.Stops.length && 'Direct'}</div>
+                  <div className={c('FlightPanel__rightAligned--gray')}>{getStops(props.flight.outboundLeg)}</div>
                 </BpkGridColumn>
               </BpkGridRow>
             </BpkGridColumn>
@@ -128,9 +128,9 @@ const FlightPanel = props =>
             <BpkGridColumn width={3}>
               <BpkGridRow>
                 <BpkGridColumn width={12}>
-                  <div className={c('FlightPanel__rightAligned-gray')}>{props.flight.inboundLeg.duration}</div>
-                  <div className={c('FlightPanel__rightAligned-green')}>{!props.flight.inboundLeg.Stops.length && 'Direct'}</div>
-                  <div className={c('FlightPanel__rightAligned-gray')}>{getStops(props.flight.inboundLeg)}</div>
+                  <div className={c('FlightPanel__rightAligned--gray')}>{props.flight.inboundLeg.duration}</div>
+                  <div className={c('FlightPanel__rightAligned--direct')}>{!props.flight.inboundLeg.Stops.length && 'Direct'}</div>
+                  <div className={c('FlightPanel__rightAligned--gray')}>{getStops(props.flight.inboundLeg)}</div>
                 </BpkGridColumn>
               </BpkGridRow>
             </BpkGridColumn>
@@ -143,7 +143,7 @@ const FlightPanel = props =>
               <div className={c('FlightPanel__agent')}>{service.getAgentById(props.flight.PricingOptions[0].Agents[0]).Name}</div>
             </BpkGridColumn>
             <BpkGridColumn width={5}>
-              <div className={c('FlightPanel__rightAligned-inherit')}><BpkButton>Select</BpkButton></div>
+              <div className={c('FlightPanel__rightAligned--inherit')}><BpkButton>Select</BpkButton></div>
             </BpkGridColumn>
           </BpkGridRow>
         </BpkGridContainer>
