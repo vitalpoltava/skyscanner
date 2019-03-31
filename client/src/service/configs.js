@@ -23,6 +23,9 @@ const initialParams = {
   infants: '0',
 };
 
-export default {
+const apiLink = 'http://localhost:4000/api/search';
+
+export {
   initialParams,
+  apiLink,
 };

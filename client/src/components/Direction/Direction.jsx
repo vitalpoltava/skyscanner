@@ -10,14 +10,14 @@ const Direction = props =>
   (
     <div className={c('Direction__body')}>
       <div className={c('Direction__body-header')}>
-        {props.config.initialParams.originPlace}
+        {props.config.originPlace}
         <BpkSmallLongArrowRightIcon fill="white" />
-        {props.config.initialParams.destinationPlace}
+        {props.config.destinationPlace}
       </div>
       <div>
-        {moment(props.config.initialParams.outboundDate).format('ddd, MMM D')}
+        {moment(props.config.outboundDate).format('ddd, MMM D')}
         &nbsp;&minus;&nbsp;
-        {moment(props.config.initialParams.inboundDate).format('ddd, MMM D')}
+        {moment(props.config.inboundDate).format('ddd, MMM D')}
       </div>
     </div>
   );

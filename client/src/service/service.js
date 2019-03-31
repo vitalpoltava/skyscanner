@@ -1,3 +1,5 @@
+import { apiLink } from './configs';
+
 let places;
 let agents;
 
@@ -153,29 +155,32 @@ const transformData = (raw = {}) => {
 
   if (itineraries.length) {
     for (let i = 0; i < itineraries.length; i += 1) {
+      const itinerary = itineraries[i];
+
       // add Legs
-      itineraries[i].outboundLeg = findLeg(legs, itineraries[i].OutboundLegId);
-      itineraries[i].inboundLeg = findLeg(legs, itineraries[i].InboundLegId);
+      const outboundLeg = findLeg(legs, itinerary.OutboundLegId);
+      const inboundLeg = findLeg(legs, itinerary.InboundLegId);
 
       // add currency
-      itineraries[i].currency = raw.Currencies[0] || [];
+      itinerary.currency = raw.Currencies[0] || [];
 
       // add Segments, Carriers, duration
-      if (itineraries[i].outboundLeg) {
-        itineraries[i].outboundLeg.segments =
-          findSegments(segments, itineraries[i].outboundLeg.SegmentIds);
-        itineraries[i].outboundLeg.carriers =
-          findCarriers(carriers, itineraries[i].outboundLeg.Carriers);
-        itineraries[i].outboundLeg.duration =
-          flightTimeInHours(itineraries[i].outboundLeg.Duration);
+      if (outboundLeg) {
+        outboundLeg.segments =
+          findSegments(segments, outboundLeg.SegmentIds);
+        outboundLeg.carriers =
+          findCarriers(carriers, outboundLeg.Carriers);
+        outboundLeg.duration =
+          flightTimeInHours(outboundLeg.Duration);
       }
-      if (itineraries[i].inboundLeg) {
-        itineraries[i].inboundLeg.segments =
-          findSegments(segments, itineraries[i].inboundLeg.SegmentIds);
-        itineraries[i].inboundLeg.carriers =
-          findCarriers(carriers, itineraries[i].inboundLeg.Carriers);
-        itineraries[i].inboundLeg.duration =
-          flightTimeInHours(itineraries[i].inboundLeg.Duration);
+
+      if (inboundLeg) {
+        inboundLeg.segments =
+          findSegments(segments, inboundLeg.SegmentIds);
+        inboundLeg.carriers =
+          findCarriers(carriers, inboundLeg.Carriers);
+        inboundLeg.duration =
+          flightTimeInHours(inboundLeg.Duration);
       }
     }
   }
@@ -185,8 +190,6 @@ const transformData = (raw = {}) => {
 // Service API
 const service = {
   getData(paramsObj = {}) {
-    const apiLink = 'http://localhost:4000/api/search';
-
     return fetch(`${apiLink}?${serialize(paramsObj)}`)
       .then((response) => {
         let result;

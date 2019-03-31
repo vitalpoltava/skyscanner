@@ -7,7 +7,7 @@ import List from './../List';
 import Direction from './../Direction';
 import TableHeader from './../TableHeader';
 
-import configs from './../../service/configs';
+import { initialParams } from './../../service/configs';
 import service from './../../service/service';
 
 const c = className => STYLES[className] || 'UNKNOWN';
@@ -29,7 +29,7 @@ class App extends React.Component {
     this.setState({ isLoading: true });
 
     // Initial data load
-    service.getData(configs.initialParams)
+    service.getData(initialParams)
       .then((data) => {
         this.setState({ data });
       })
@@ -42,7 +42,7 @@ class App extends React.Component {
     return (
       <div className={c('App__gray-background')}>
         <Header />
-        <Direction config={configs} />
+        <Direction config={initialParams} />
         <TableHeader />
         <main className={c('App__main')}>
           <Loading isLoading={this.state.isLoading} />
